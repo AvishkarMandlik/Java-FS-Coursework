@@ -30,7 +30,12 @@ public class ActivityController {
     public List<Activity> getByWeek(@RequestParam String start, @RequestParam String end) {
         return repository.findByDateRange(LocalDate.parse(start), LocalDate.parse(end));
     }
-
+    
+    @GetMapping("/category")
+    public List<Activity> getByCategory(@RequestParam String category) {
+        return repository.findByCategory(category);
+    }
+    
     @PutMapping("/{id}")
     public Activity update(@PathVariable Long id, @RequestBody Activity updated) {
         Activity existing = repository.findById(id).orElseThrow();

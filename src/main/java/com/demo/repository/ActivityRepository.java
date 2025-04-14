@@ -11,7 +11,10 @@ import java.util.List;
 
 public interface ActivityRepository extends JpaRepository<Activity, Long> {
     List<Activity> findByDate(LocalDate date);
+    
+    List<Activity> findByCategory(String category);
 
+    
     @Query("SELECT a FROM Activity a WHERE a.date BETWEEN :start AND :end")
     List<Activity> findByDateRange(@Param("start") LocalDate start, @Param("end") LocalDate end);
 }
