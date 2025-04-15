@@ -8,6 +8,7 @@ import java.time.LocalTime;
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private Long id;
 
     private String title;
@@ -16,8 +17,25 @@ public class Activity {
     private LocalTime startTime;
     private LocalTime endTime;
     private LocalDate date;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    
+    public User getUser() {
+		return user;
+	}
 
-    public Activity() {
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Activity(User user) {
+		super();
+		this.user = user;
+	}
+
+	public Activity() {
     	super();
     }
 
