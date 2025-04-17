@@ -44,7 +44,5 @@ public class Usercontroller {
 	        return userRepository.findAll();
 	    }
 	    
-	    
-	    
 
 }
