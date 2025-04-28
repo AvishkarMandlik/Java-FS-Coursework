@@ -40,6 +40,24 @@ public class ActivityController {
         }
         return repository.findByDateAndUser(LocalDate.parse(date), user);
     }
+    
+    
+    @GetMapping("/between")
+    public List<Activity> getActivitiesBetweenDates(@RequestParam("start") String startDate,
+                                                     @RequestParam("end") String endDate,
+                                                     @RequestHeader String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) throw new RuntimeException("User not found");
+
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+
+        if ("ADMIN".equals(user.getRole())) {
+            return repository.findByDateRange(start, end);
+        }
+        return repository.findByDateRangeAndUser(start, end, user);
+    }
+
 
     @PutMapping("/{id}")
     public Activity update(@PathVariable Long id, @RequestBody Activity updated, @RequestHeader String username) {
